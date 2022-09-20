@@ -1,37 +1,41 @@
 'use strict';
-import { Model } from 'sequelize';
-module.exports = (sequelize: any, DataTypes: { STRING: any; }) => {
-  class Company extends Model {
+import { DataTypes, Model } from 'sequelize';
+import db from '.';
+import { User } from './user';
 
-    static associate(models: any) {
-      // define association here
-      Company.hasOne(models.User)
-    }
+export class Company extends Model {
+
+}
+Company.init({
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true,
+    allowNull: false
+  },
+  company_name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  company_location: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  company_reg_no: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  company_contact: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  company_email: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
-  Company.init({
-    company_name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    company_location: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    company_reg_no: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    company_contact: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    company_email: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
-  }, {
-    sequelize,
-    modelName: 'Company',
-  });
-  return Company;
-};
+}, {
+  sequelize: db.sequelize,
+  modelName: 'Company',
+});
+
+User.hasOne(Company, { onDelete: "CASCADE", onUpdate: "CASCADE" })

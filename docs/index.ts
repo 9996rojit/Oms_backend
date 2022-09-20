@@ -1,14 +1,17 @@
 const basicInfo = require('./basicInfo');
 const servers = require('./servers');
-// const components = require('./components');
 const tags = require('./tags');
+const categorySchemas = require('./services/category/schema');
+const category = require('./services/category/category')
+
+
 // const login = require('./oms');
 
 const docs = {
   ...basicInfo,
   ...servers,
-  // ...components,
   ...tags,
-  // ...login
+  ...category,
+  ...categorySchemas,
 }
 export default docs
