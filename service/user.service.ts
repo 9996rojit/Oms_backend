@@ -1,3 +1,4 @@
+import { userRegisterSchema } from "../helper/validator/input.validator";
 import db from "../models";
 import { user, user_id } from "../types/Common";
 const { User } = require('../models/user')
@@ -6,15 +7,26 @@ const { User } = require('../models/user')
 export class CreateUserService {
   static async create(info: user, transactio?: any): Promise<user> {
     let payload = {}
-    return await db.sequelize.transaction(async (transaction: any) => {
-      try {
-        payload = await User.create({ ...info }, transaction)
+    try {
+      const validatedInput = await userRegisterSchema.validateAsync(info)
+      if (validatedInput.error) {
+        throw validatedInput.error
+      } else {
+        return await db.sequelize.transaction(async (transaction: any) => {
+          try {
+
+            payload = await User.create({ ...info }, transaction)
+          }
+          catch (err) {
+            throw err
+          }
+          return payload
+        })
       }
-      catch (err) {
-        throw err
-      }
-      return payload
-    })
+    } catch (error) {
+      throw error
+    }
+
   }
   static async update(info: user) {
     let { id, ...rest } = info
