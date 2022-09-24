@@ -6,5 +6,7 @@ export const userRegisterSchema = Joi.object({
   first_name: Joi.string().required(),
   last_name: Joi.string().required(),
   password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'io'] } })
+  email: Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'io'] } }),
+  CategoryId: Joi.string().required(),
+  contact_number: Joi.string().regex(/^[0-9]{10}$/).length(10).required()
 })

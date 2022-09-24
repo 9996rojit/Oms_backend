@@ -9,6 +9,7 @@ export class CreateUserService {
     let payload = {}
     try {
       const validatedInput = await userRegisterSchema.validateAsync(info)
+      console.log("🤫🤫🤫 ~ file: user.service.ts ~ line 12 ~ CreateUserService ~ create ~ validatedInput", validatedInput)
       if (validatedInput.error) {
         throw validatedInput.error
       } else {
