@@ -1,3 +1,4 @@
+import { CategotySchema } from "../helper/validator/input.validator";
 import db from "../models";
 const Category = require('../models/category').Category
 import { categoryType, category_id } from "../types/Common";
@@ -6,24 +7,34 @@ import { categoryType, category_id } from "../types/Common";
 
 export class CategoryService {
   static async create(info: categoryType): Promise<categoryType> {
-    let payload = {};
-    const { category_name } = info
     try {
-      const category_list = await Category.findOne({ where: { category_name } })
-      if (category_list) {
-        throw new Error("Category already exist with this category name");
-      }
-      else {
-        return await db.sequelize.transaction(async (transaction: any) => {
-          try {
-            payload = await Category.create({ ...info })
-          } catch (err) {
-            throw err
+      const validatedInput = await CategotySchema.validateAsync(info)
+      if (validatedInput.error) {
+        throw validatedInput
+      } else {
+        let payload = {};
+        const { category_name } = info
+        try {
+          const category_list = await Category.findOne({ where: { category_name } })
+          if (category_list) {
+            throw new Error("Category already exist with this category name");
           }
-          return payload
-        })
+          else {
+            return await db.sequelize.transaction(async (transaction: any) => {
+              try {
+                payload = await Category.create({ ...info })
+              } catch (err) {
+                throw err
+              }
+              return payload
+            })
+          }
+        } catch (error) {
+          throw error
+        }
       }
-    } catch (error) {
+    }
+    catch (error) {
       throw error
     }
   }

@@ -1,22 +1,33 @@
+import { CompanyScheme } from "../helper/validator/input.validator";
 import db from "../models";
 import { Company } from "../models/company";
 import { CompanyType, Company_id } from "../types/Common";
 
 export class CompanyService {
   static async create(info: CompanyType) {
-    let payload = {}
-    await db.sequelize.transaction(async (transaction: any) => {
-      transaction.afterCommit(async (transaction: any) => {
-        try {
-          payload = await Company.create({ ...info })
+    try {
 
-        } catch (error) {
-          throw error
-        }
+      let payload = {}
+      const validatedInput = await CompanyScheme.validateAsync(info)
+      if (validatedInput.error) {
+        throw validatedInput
+      } else {
+        await db.sequelize.transaction(async (transaction: any) => {
+          transaction.afterCommit(async (transaction: any) => {
+            try {
+              payload = await Company.create({ ...info })
 
-      })
-      return payload
-    })
+            } catch (error) {
+              throw error
+            }
+
+          })
+          return payload
+        })
+      }
+    }
+    catch (error) {
+    }
   }
 
   static async update(info: CompanyType) {

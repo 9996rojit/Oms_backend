@@ -10,3 +10,17 @@ export const userRegisterSchema = Joi.object({
   CategoryId: Joi.string().required(),
   contact_number: Joi.string().regex(/^[0-9]{10}$/).length(10).required()
 })
+
+
+export const CategotySchema = Joi.object({
+  category_name: Joi.string().required()
+})
+
+export const CompanyScheme = Joi.object({
+  company_name: Joi.string().required(),
+  company_location: Joi.string().required(),
+  company_reg_no: Joi.string().regex(/^[0-9]{10}$/).length(10).required(),
+  company_contact: Joi.string().regex(/^[0-9]{10}$/).length(10).required(),
+  company_email: Joi.string().required(),
+  UserId: Joi.string().required()
+})
