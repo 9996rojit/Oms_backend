@@ -43,6 +43,10 @@ Product.init({
   product_feature: {
     type: DataTypes.JSONB,
     allowNull: false
+  },
+  CategoryId: {
+    type: DataTypes.STRING,
+    allowNull: true
   }
 }, {
   sequelize: db.sequelize,

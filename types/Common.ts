@@ -46,3 +46,18 @@ export interface LoginType {
 export interface loginResponse {
   token: string
 }
+
+export interface Product_id {
+  id?: string,
+}
+export interface ProductInterface extends Product_id {
+  CompanyId: string,
+  product_name: string,
+  product_description: string,
+  product_rating: string,
+  product_color: string,
+  product_quantity: string,
+  product_brand: string,
+  product_feature: string,
+  CategoryId: string,
+}
