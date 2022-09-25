@@ -18,7 +18,7 @@ export class AuthService {
         const company = { ...info.company, UserId: user.id }
         const createCompany = await CompanyService.create({ ...company })
         payload = { user, createCompany }
-        return
+        return payload
       } catch (error) {
         throw error
       }

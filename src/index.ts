@@ -7,7 +7,7 @@ import { MORGAN_LOGGER, PORT } from '../utils/appConfig';
 import { mainRouter } from '../router/mainRouter';
 // import middleware from '../middleware';
 import db from '../models'
-import { Image } from '../models/image';
+
 const app = express()
 app.use(cors())
 app.use(express.json());
