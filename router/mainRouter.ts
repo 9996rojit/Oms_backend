@@ -4,6 +4,7 @@ import { createCompany } from '../controller/Company.controller';
 import { login, register } from '../controller/Auth.controller';
 import { createUser, deleteUser, getAllUser, updateUser } from '../controller/User.controller'
 import { createProduct, deleteProduct, getAllProduct, updateProduct } from '../controller/Product.controller';
+import { upload } from '../helper/imageUploader';
 export const mainRouter = express.Router();
 
 mainRouter.get('/', (req, res) => {
@@ -26,7 +27,7 @@ mainRouter.post('/create-company/', createCompany)
 
 //Routes for product service
 mainRouter.get('/get-all-product/', getAllProduct)
-mainRouter.post('/create-product/', createProduct)
+mainRouter.post('/create-product/', upload.single('product_image'), createProduct)
 mainRouter.put('/edit-product/:id', updateProduct)
 mainRouter.delete('/delete-product/:id', deleteProduct)
 
