@@ -1,6 +1,6 @@
 import { Op } from "sequelize";
 import { convertPassword } from "../helper/password.coverter";
-import { TokenGenerator } from "../helper/toke.generator";
+import { TokenGenerator } from "../helper/token.generator";
 import db from "../models";
 import { Category } from "../models/category";
 import { Permission } from "../models/permission";
