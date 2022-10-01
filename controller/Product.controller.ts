@@ -41,7 +41,6 @@ export const deleteProduct = async (req: Request, res: Response) => {
     const result = await ProductService.deleteProduct(req.params);
     res.send(result)
   } catch (error) {
-    console.log("🤫🤫🤫 ~ file: Product.controller.ts ~ line 44 ~ deleteProduct ~ error", error)
     res.status(400).send(error)
   }
 
